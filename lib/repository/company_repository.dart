@@ -5,12 +5,20 @@ class CompanyRepository {
   Future<List<CompanyModel>> getCompanies() async {
     final dio = CustomDio().instance;
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 1));
 
     return dio.get('/companies').then((res) => res.data['companies']
             ['companies']
         .map<CompanyModel>((c) => CompanyModel.fromJson(c))
         .toList());
+  }
+
+  Future<CompanyModel> getCompany(String id) async {
+    final dio = CustomDio().instance;
+
+    final response = await dio.get('/companies/$id');
+    CompanyModel company = CompanyModel.fromJson(response.data['company']);
+    return company;
   }
 
   Future createCompany(String name, String email) async {
