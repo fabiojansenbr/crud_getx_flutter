@@ -44,7 +44,7 @@ class CompaniesPage extends StatelessWidget {
                 },
                 child: ListTile(
                   leading: Text(
-                    companies[index].name[0],
+                    companies[index].name[0].toUpperCase(),
                     style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                   title: Text(companies[index].name),

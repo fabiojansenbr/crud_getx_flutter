@@ -47,7 +47,7 @@ class CompanyController extends GetxController {
 
       await repository.updateCompany(id, name.value, email.value);
 
-      Get.back();
+      Get.offAllNamed('/');
       listar();
     }
   }
