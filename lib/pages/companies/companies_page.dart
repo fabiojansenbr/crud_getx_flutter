@@ -40,20 +40,39 @@ class CompaniesPage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () => {
-                  Get.toNamed('/company-edit/${companies[index].id}'),
+                  Get.toNamed('/company/edit/${companies[index].id}'),
                 },
-                child: ListTile(
-                  leading: Text(
-                    companies[index].name[0].toUpperCase(),
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                child: Dismissible(
+                  key: UniqueKey(),
+                  child: ListTile(
+                    leading: Text(
+                      companies[index].name[0].toUpperCase(),
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    ),
+                    title: Text(companies[index].name),
+                    subtitle: Text(companies[index].email),
                   ),
-                  title: Text(companies[index].name),
-                  subtitle: Text(companies[index].email),
+                  onDismissed: (direction) {
+                    if (direction == DismissDirection.endToStart) {
+                      companiesController.deletar(companies[index].id);
+                    }
+                  },
                 ),
               );
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () => {
+          Get.toNamed('/company/create/'),
+        },
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }

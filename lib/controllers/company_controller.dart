@@ -51,4 +51,26 @@ class CompanyController extends GetxController {
       listar();
     }
   }
+
+  criar() async {
+    if (formKey.currentState.validate()) {
+      formKey.currentState.save();
+
+      carregando.value = true;
+
+      await repository.createCompany(name.value, email.value);
+
+      carregando.value = false;
+
+      Get.offAllNamed('/');
+      listar();
+    }
+  }
+
+  deletar(String id) async {
+    await repository.deleteCompany(id);
+
+    Get.snackbar('Deletado', 'Company deletada com sucesso',
+        snackPosition: SnackPosition.BOTTOM);
+  }
 }
